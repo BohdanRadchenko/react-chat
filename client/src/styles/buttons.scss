@@ -1,0 +1,70 @@
+@import "variables";
+@import "mixin";
+
+.nav-link {
+  padding: 6px 0;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  letter-spacing: 0.12px;
+  color: $gray-100;
+  text-align: center;
+
+  &--selected {
+
+  }
+}
+
+.button {
+  @include button-reset;
+
+  &__base {
+    background-color: $blue-100;
+  }
+}
+
+.menu-link {
+  cursor: pointer;
+  padding: 6px 0;
+  width: 100%;
+  letter-spacing: 0.12px;
+  color: $gray-100;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all $duration-menu ease;
+
+  &.-full {
+    white-space: pre-wrap;
+    padding-left: 14px;
+    padding-right: 6px;
+    justify-content: flex-start;
+  }
+
+  &:hover {
+    background: $white-100;
+    box-shadow: 5px 5px 15px 5px $white-300;
+  }
+
+  &--selected {
+    background: $white-300;
+    box-shadow: 5px 5px 15px 5px $white-100;
+    color: $gray-base;
+  }
+
+  &--icon {
+    font-size: 20px;
+  }
+
+  &--desc {
+    margin: 0;
+    padding: 0 0 0 2px;
+    font-size: 14px;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+}

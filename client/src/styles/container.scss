@@ -1,0 +1,53 @@
+@import "variables";
+
+.root-container {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  height: 100%;
+  display: block;
+  margin: 0 auto;
+  color: $black-100;
+
+  &__wrapper {
+    background-color: $white-base;
+    box-shadow: $base-box-shadow;
+    height: 100%;
+    width: 100%;
+    display: flex;
+  }
+
+  &__left,
+  &__right {
+    height: 100%;
+    transition: all $duration-menu ease;
+    background: $white-base;
+  }
+
+  &__left {
+    width: 4%;
+    min-width: 62px;
+    border-right: 1px solid $white-300;
+  }
+
+  &__right {
+    width: 96%;
+    max-width: calc(100% - 62px);
+  }
+
+  &__wrapper.open &__left {
+    width: 13%;
+    min-width: 186px;
+  }
+
+  &__wrapper.open &__right {
+    width: 87%;
+  }
+}

@@ -1,0 +1,183 @@
+@import "variables";
+@import "mixin";
+
+@keyframes bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(1.1, .9) translateY(0);
+  }
+  30% {
+    transform: scale(.9, 1.1) translateY(-100px);
+  }
+  50% {
+    transform: scale(1.05, .95) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(-7px);
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+.notification {
+
+  &__container {
+    position: fixed;
+    box-sizing: border-box;
+    font-size: 14px;
+    z-index: 999999;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 330px;
+    height: auto;
+    max-height: 100%;
+
+    &.top-left {
+      top: 0;
+      left: 0;
+      bottom: unset;
+      right: unset;
+    }
+
+    &.top-right {
+      top: 0;
+      right: 0;
+      bottom: unset;
+      left: unset;
+    }
+
+    &.bottom-left {
+      bottom: 0;
+      left: 0;
+      top: unset;
+      right: unset;
+    }
+
+    &.bottom-right {
+      bottom: 0;
+      right: 0;
+      top: unset;
+      left: unset;
+    }
+  }
+
+  &__list {
+    @include list-reset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    padding: 4px;
+    cursor: pointer;
+    width: 94%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 6px 0;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #999;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:hover &__icon {
+      animation-play-state: running;
+    }
+
+    &.info {
+      background: $bg-info;
+    }
+
+    &.success {
+      background: $bg-success;
+    }
+
+    &.error {
+      background: $bg-error;
+    }
+
+    &.warning {
+      background: $bg-warning;
+    }
+
+    &__icon {
+      width: 30px;
+      min-height: 56px;
+      height: 100%;
+      display: flex;
+      justify-content: flex-start;
+      padding: 0 6px;
+      align-items: center;
+      text-align: center;
+      font-size: 24px;
+      color: white;
+      transform: scale(0.9);
+      transition: all 100ms ease;
+      animation: bounce 2s cubic-bezier(0.280, 0.840, 0.420, 1) infinite;
+      animation-play-state: paused;
+    }
+
+    &__description {
+      padding-left: 6px;
+      width: calc(100% - 30px);
+      display: flex;
+      flex-direction: column;
+
+      &__title,
+      &__message {
+        margin: 0;
+        padding: 0;
+        color: white;
+        text-align: left;
+        white-space: pre-wrap;
+
+        &::first-letter {
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+      }
+
+      &__title {
+        font-weight: 600;
+        font-size: 16px;
+
+      }
+
+      &__message {
+        font-size: 14px;
+        text-overflow: ellipsis;
+        text-align: justify-all;
+      }
+    }
+
+    &__bar {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      background: rgba(50, 40, 30, 0.4);
+    }
+  }
+
+  &__container.reverse &__item {
+    flex-direction: row-reverse;
+  }
+}

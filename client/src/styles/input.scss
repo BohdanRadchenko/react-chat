@@ -1,0 +1,186 @@
+@import "variables";
+
+@mixin label-active {
+  font-size: 10px;
+  top: 2px;
+  transform: translateY(0);
+  opacity: 0.5;
+}
+
+@mixin label-valid {
+  color: $green-base;
+}
+
+@mixin label-invalid {
+  color: $red-base;
+}
+
+.input {
+  cursor: text;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: auto;
+
+  &--wrapper {
+    margin-bottom: 20px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  //INPUT
+  & > &--input {
+    padding: 10px 26px 10px 20px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid $white-300;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  //LABEL
+  & > &--label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    display: inline-block;
+    transform: translateY(-50%);
+    transition: all $duration-menu ease;
+    opacity: 0.8;
+
+    &.--required:before {
+      content: '*';
+      position: absolute;
+      top: -2px;
+      right: -8px;
+      display: inline-block;
+      font-size: 14px;
+    }
+  }
+
+  &:focus-within > &--label {
+    @include label-active
+  }
+
+  &--input:not(:placeholder-shown) + &--label {
+    @include label-active;
+  }
+
+  &.i-valid &--input:not(:placeholder-shown) + &--label {
+    @include label-valid;
+  }
+
+  &.i-invalid &--input:not(:placeholder-shown) + &--label {
+    @include label-invalid;
+  }
+
+  //ICON
+  &--icon {
+    position: absolute;
+    display: block;
+    opacity: 0.1;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    transition: all 100ms ease;
+
+    &--password {
+      position: absolute;
+      display: block;
+      font-size: 16px;
+      top: 50%;
+      left: 4px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      opacity: 0;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.i-valid > &--icon,
+  &.i-valid > &--icon--password {
+    @include label-valid;
+    color: $green-100;
+  }
+
+  &.i-invalid > &--icon,
+  &.i-invalid > &--icon--password {
+    @include label-invalid;
+    color: $red-200;
+  }
+
+  &--input:not(:placeholder-shown) ~ &--icon {
+    opacity: 0.9;
+  }
+
+  &--input[type="password"]:hover ~ &--icon--password {
+    opacity: 1;
+  }
+
+  &--input[type="password"]:hover:placeholder-shown ~ &--icon--password {
+    opacity: 0;
+  }
+
+  // REQUIREMENTS
+  &--requirements {
+    background: $white-base;
+    padding: 2px 6px;
+    font-size: 12px;
+    color: $red-200;
+    transition: all 100ms ease;
+    text-align: justify;
+    display: none;
+  }
+
+
+}
+
+
+.search-input {
+  width: 100%;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+
+  &--icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: $black-100;
+    opacity: 0.2;
+    font-size: 18px;
+    transition: all $duration-menu ease;
+  }
+
+  &--input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background: $white-200;
+    padding: 10px 14px 10px 38px;
+    color: $black-100;
+    transition: all $duration-menu ease;
+    font-size: 16px;
+
+    &:focus {
+      padding-left: 14px;
+    }
+
+    &::placeholder {
+      opacity: 0.2;
+    }
+  }
+
+  &--input:focus + &--icon {
+    left: -20px;
+  }
+}

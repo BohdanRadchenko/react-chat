@@ -1,0 +1,12 @@
+@import "variables";
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid $white-300;
+  padding: 14px 18px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
