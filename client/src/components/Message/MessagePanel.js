@@ -5,9 +5,11 @@ import {useLocation} from 'react-router';
 import {
 	AudioOutlined,
 	CameraOutlined,
+	DeleteOutlined,
 	MoreOutlined,
 	SendOutlined,
 	SmileOutlined,
+	SelectOutlined,
 } from '@ant-design/icons';
 
 import Header from '../Header';
@@ -16,11 +18,13 @@ import TextArea from '../Input/TextArea';
 
 import {getDialogId} from '../../helpers/path.helpers';
 import {testContacts, testMessage} from '../../options';
+import {isSelectedItem} from '../../helpers/message.helpers';
 
 const MessagePanel = () => {
 	const [height, setHeight] = useState(0);
 	const [value, setValue] = useState('');
 	const [dialogs, setDialogs] = useState(testMessage);
+	const [selectedList, setSelectedList] = useState([]);
 
 	const history = useHistory();
 	const {pathname} = useLocation();
@@ -29,10 +33,6 @@ const MessagePanel = () => {
 	const textareaRef = useRef(null);
 
 	const user = testContacts.find(el => el.id === userId);
-
-	const handlerHeightTextarea = height => {
-		setHeight(height);
-	};
 
 	const handleChange = value => {
 		setValue(value);
@@ -43,15 +43,24 @@ const MessagePanel = () => {
 		if (!value) {
 			return textareaRef && textareaRef.current.focus();
 		}
-
 		const message = {
 			id: Date.now().toString(),
 			sender: '1',
 			message: value,
 			read: false,
 			time: 'Сейчас',
+			userId: '1',
+			avatar: ''
 		};
 		setDialogs(prev => [...prev, message]);
+	};
+
+	const toggleSelectedElement = dialog => {
+		if (isSelectedItem(selectedList, dialog.id)) {
+			const newList = selectedList.filter(el => el.id !== dialog.id);
+			return setSelectedList(newList);
+		}
+		return setSelectedList(prev => [...prev, dialog]);
 	};
 
 	return (
@@ -91,10 +100,42 @@ const MessagePanel = () => {
 				</Header>
 
 				<div className="message-panel__content">
+
+					{!!selectedList.length && (
+							<div className="message-panel__content__context">
+								<div className="message-panel__content__context__icon red">
+									<span>
+										<DeleteOutlined/>
+									</span>
+									<p className="message-panel__content__context__icon__text">
+										Delete
+									</p>
+								</div>
+
+								<p className="message-panel__content__context__count">
+									<span>{selectedList.length}</span> message selected
+								</p>
+
+								<div
+										className="message-panel__content__context__icon blue reverse">
+									<span>
+										<SelectOutlined />
+									</span>
+									<p className="message-panel__content__context__icon__text">
+										Forward
+									</p>
+								</div>
+							</div>
+					)}
+
+
 					<MessageList
 							dialogs={dialogs}
-							height={height}
+							selectedList={selectedList}
+							toggleSelectedElement={toggleSelectedElement}
+							style={{height: `calc(100% - ${height + 44 + (!!selectedList.length ? 40 : 0) }px)`}}
 					/>
+
 					<div className="message-panel__textarea">
 						<div className="message-panel__textarea__wrapper">
 							<div className="message-panel__textarea__icon__group">
@@ -107,7 +148,7 @@ const MessagePanel = () => {
 									className="message-panel__textarea__input"
 									placeholder="Write a message..."
 									value={value}
-									onHeight={handlerHeightTextarea}
+									onHeight={height => setHeight(height)}
 									onChange={handleChange}
 									onPressEnter={handlePressEnter}
 									clearOnEnter
@@ -128,6 +169,7 @@ const MessagePanel = () => {
 							</div>
 						</div>
 					</div>
+
 				</div>
 
 			</div>

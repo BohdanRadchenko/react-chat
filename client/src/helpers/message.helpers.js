@@ -6,3 +6,8 @@ export const MESSAGE = {
 		VALID_CONFIRM: 'Passwords must be match.',
 	},
 };
+
+export const isSelectedItem = (array, id) => {
+	if (!array.length) return false
+	return !!array.find(selected => selected.id === id)
+}

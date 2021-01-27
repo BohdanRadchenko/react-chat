@@ -1,27 +1,32 @@
 import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import MessageItem from './MessageItem';
+import {isSelectedItem} from '../../helpers/message.helpers';
 
-const MessageList = ({dialogs, style, height}) => {
+const MessageList = ({dialogs, style, toggleSelectedElement, selectedList}) => {
 	const messagesEndRef = useRef(null);
 
-	const scrollToBottom = () => {
-		console.log('scrollToBottom');
+	useEffect(() => {
 		messagesEndRef.current?.scrollIntoView({
 			behavior: 'smooth',
 		});
-	};
-
-	useEffect(scrollToBottom, [dialogs, height]);
+	}, [dialogs]);
 
 	return (
 			<ul
 					className="message-panel__list"
-					style={{...style, height: `calc(100% - ${height + 44}px)`}}
+					style={{...style}}
 			>
 				{dialogs.map(dialog => (
-						<li key={dialog.id} className="message-panel__list__item">
+						<li
+								key={dialog.id}
+								className={classnames('message-panel__list__item', {
+									'selected': isSelectedItem(selectedList, dialog.id),
+								})}
+								onClick={e => toggleSelectedElement(dialog)}
+						>
 							<MessageItem {...dialog}/>
 						</li>
 				))}
@@ -34,9 +39,10 @@ const MessageList = ({dialogs, style, height}) => {
 };
 
 MessageList.propTypes = {
-	dialogs: PropTypes.array,
 	style: PropTypes.object,
-	height: PropTypes.number,
+	dialogs: PropTypes.array,
+	selectedList: PropTypes.array,
+	toggleSelectedElement: PropTypes.func,
 };
 
 export default MessageList;

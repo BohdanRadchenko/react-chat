@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {CheckOutlined} from '@ant-design/icons';
 import classnames from 'classnames';
 
 import Avatar from '../Avatar';
 
 const yourId = '1';
 
-const MessageItem = ({id, avatar, message, time, sender}) => {
+const MessageItem = ({id, avatar, message, time, sender, userId, read}) => {
 
 	return (
 			<div
@@ -16,16 +17,22 @@ const MessageItem = ({id, avatar, message, time, sender}) => {
 					})}
 			>
 				<div className="message-panel__item__avatar">
-					<Avatar id={id} avatar={''}/>
+					<Avatar id={userId} avatar={avatar}/>
 				</div>
 
 				<div className="message-panel__item__bubble">
-				<p className="message-panel__item__text">
+					<p className="message-panel__item__text">
 						{message}
 					</p>
 					<div className="message-panel__item__time">
 						{time}
 					</div>
+
+					{read && (
+							<div className="message-panel__item__checked">
+								{sender === yourId ? <CheckOutlined/> : ''}
+							</div>
+					)}
 				</div>
 			</div>
 	);
@@ -33,10 +40,12 @@ const MessageItem = ({id, avatar, message, time, sender}) => {
 
 MessageItem.propTypes = {
 	id: PropTypes.string,
+	userId: PropTypes.string,
 	avatar: PropTypes.string,
 	time: PropTypes.string,
 	message: PropTypes.string,
 	sender: PropTypes.string,
+	read: PropTypes.bool,
 };
 
 export default MessageItem;
