@@ -9,8 +9,6 @@ import {getUnreadMessageCount} from '../../helpers/dialog.helpers';
 const DialogItem = ({name, id, isOnline, avatar, dialogs}) => {
 	const unreadCount = getUnreadMessageCount(dialogs);
 
-	console.log(unreadCount);
-
 	return (
 			<div className="dialog-panel__item">
 

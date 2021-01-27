@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {UserOutlined} from '@ant-design/icons';
 
 const Avatar = ({avatar, id, isOnline}) => {
+
 	return (
 			<Link to={`/im/user/${id}`} className="avatar">
 				<div className="avatar__image">

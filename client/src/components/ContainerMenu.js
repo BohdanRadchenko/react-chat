@@ -14,14 +14,16 @@ const ContainerMenu = ({children}) => {
 
 	const openMenu = useCallback(() => {
 		setIsOpen(true);
-	}, [isHover]);
+	}, []);
 
 	const closeMenu = useCallback(() => {
 		setIsOpen(false);
-	}, [isHover]);
+	}, []);
 
 	useEffect(() => {
-		openMenu();
+		if (isHover) {
+			openMenu();
+		}
 		const timeout = setTimeout(() => {
 			if (isHover) return;
 			closeMenu();
@@ -29,7 +31,7 @@ const ContainerMenu = ({children}) => {
 		return () => {
 			clearTimeout(timeout);
 		};
-	}, [isHover]);
+	}, [isHover, openMenu, closeMenu]);
 
 	return (
 			<div className="root-container">
