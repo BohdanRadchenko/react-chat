@@ -17,8 +17,9 @@ import MessageList from './MessageList';
 import TextArea from '../Input/TextArea';
 
 import {getDialogId} from '../../helpers/path.helpers';
-import {testMessageOption, testUserOptions} from '../../options';
 import {isSelectedItem} from '../../helpers/message.helpers';
+
+import {testMessageOption, testUserOptions} from '../../options';
 
 const MessagePanel = () => {
 	const [height, setHeight] = useState(0);
@@ -38,7 +39,7 @@ const MessagePanel = () => {
 		if (d) {
 			setDialog(d.dialog);
 		}
-	});
+	}, [setDialog, dialogId]);
 
 	const handleChange = value => {
 		setValue(value);
@@ -50,13 +51,14 @@ const MessagePanel = () => {
 			return textareaRef && textareaRef.current.focus();
 		}
 		const message = {
-			id: Date.now().toString(),
-			sender: '1',
+			message_id: new Date().toString(),
+			sender_id: '00-00',
+			sender_avatar: testUserOptions['00-00'].avatar,
 			message: value,
-			read: false,
-			time: new Date(),
-			userId: '1',
-			avatar: '',
+			message_time: new Date().toString(),
+			read: true,
+			attachments: null,
+			typing: false,
 		};
 		setDialog(prev => [...prev, message]);
 	};

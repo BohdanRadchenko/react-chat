@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import {CheckOutlined} from '@ant-design/icons';
 
 import Avatar from '../Avatar';
-import {getTimeDistance} from '../../helpers/date.helpers';
+import {getTimeDistanceDialog} from '../../helpers/date.helpers';
+
 
 const DialogItem = ({
 	                    avatar,
@@ -16,6 +17,8 @@ const DialogItem = ({
 	                    unread_count,
 	                    active = true,
                     }) => {
+
+	const time = getTimeDistanceDialog(last_message_create_at)
 
 	return (
 			<div className="dialog-panel__item">
@@ -34,7 +37,7 @@ const DialogItem = ({
 				</div>
 
 				<div className="dialog-panel__item__time">
-						{getTimeDistance(last_message_create_at)}
+						{time}
 				</div>
 
 				{!!unread_count && (

@@ -1,14 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {UserOutlined} from '@ant-design/icons';
 
-const Avatar = ({avatar, id, isOnline}) => {
+import {getGradientAvatar} from '../helpers/avatar.helpers';
+
+const Avatar = ({avatar, id, isOnline, style = {}}) => {
+
+	const gradientAvatar = getGradientAvatar(id);
 
 	return (
 			<Link to={`/im/user/${id}`} className="avatar">
-				<div className="avatar__image">
+				<div
+						className="avatar__image"
+						style={{...style, ...gradientAvatar}}
+				>
 					{!!avatar ? (
 									<img src={avatar} alt="avatar"/>
 							)

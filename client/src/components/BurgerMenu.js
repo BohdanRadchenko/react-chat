@@ -12,7 +12,7 @@ import MenuButton from './Buttons/MenuButton';
 import Avatar from './Avatar';
 
 const user = {
-	id: '1',
+	id: '00-00',
 	avatar: 'https://media.wired.com/photos/598e35fb99d76447c4eb1f28/master/pass/phonepicutres-TA.jpg',
 };
 

@@ -5,9 +5,7 @@ import {CheckOutlined} from '@ant-design/icons';
 import classnames from 'classnames';
 
 import Avatar from '../Avatar';
-import {getTimeDistance} from '../../helpers/date.helpers';
-
-const yourId = '1';
+import {getTimeDistanceMessage} from '../../helpers/date.helpers';
 
 const MessageItem = ({
 	                     message_id,
@@ -26,6 +24,8 @@ const MessageItem = ({
 	};
 
 	const currentUserId = '00-00';
+
+	const time = getTimeDistanceMessage(message_time)
 
 	if (typing && sender_id === currentUserId) {
 		return null;
@@ -90,7 +90,7 @@ const MessageItem = ({
 
 					{message_time && (
 							<div className="message-panel__item__time">
-								{getTimeDistance(message_time)}
+								{time}
 							</div>
 					)}
 
