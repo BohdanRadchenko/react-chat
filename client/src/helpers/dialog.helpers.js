@@ -15,8 +15,9 @@ export const getSearchFilter = (array, value) => {
 };
 
 export const getUnreadMessageCount = dialogs => {
-	return dialogs.reduce((acc, dialog) => {
+	const result = dialogs.reduce((acc, dialog) => {
 		if (dialog.read) return acc = acc + 1;
 		return acc;
 	}, 0);
+	return result > 9 ? '+9' : result;
 };

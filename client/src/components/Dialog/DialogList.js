@@ -18,12 +18,12 @@ const DialogList = ({contacts}) => {
 	return (
 			<ul className="dialog-panel__list">
 				{contacts.map(contact => (
-						<li onClick={e => history.push(`/im/dialog/${contact.id}`)}
-						    key={contact.id}
-						    className={`dialog-panel__list__item 
-								${isActiveDialog(contact.id) ? 'active' : ''}`}
+						<li onClick={e => history.push(`/im/dialog/${contact.user_id}`)}
+						    key={contact.user_id}
+						    className={`dialog-panel__list__item
+								${isActiveDialog(contact.user_id) ? 'active' : ''}`}
 						>
-							<DialogItem {...contact} />
+							<DialogItem {...contact} active={isActiveDialog(contact.user_id)}/>
 						</li>
 				))}
 			</ul>

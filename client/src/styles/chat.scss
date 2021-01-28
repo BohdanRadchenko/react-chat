@@ -16,5 +16,16 @@
 
   &__right {
     width: 72%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__placeholder {
+      color: #999;
+      font-size: 16px;
+      text-align: center;
+      margin: 0;
+      padding-bottom: 200px;
+    }
   }
 }

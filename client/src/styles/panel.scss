@@ -1,6 +1,36 @@
 @import "variables";
 @import "mixin";
 
+@keyframes typing_bounce {
+  0% {
+    transform: translateY(0);
+  }
+  33% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing_scaling {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .dialog-panel {
   border-right: 1px solid $white-300;
   height: 100%;
@@ -83,6 +113,7 @@
 
     &__content {
       display: block;
+      max-width: calc(100% - 70px);
 
       &__name,
       &__message {
@@ -100,6 +131,10 @@
 
       &__message {
         opacity: 0.4;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
 
@@ -112,11 +147,12 @@
     }
 
     &__time {
+      margin: 0;
       top: 0;
       right: 0;
       opacity: 0.4;
       display: inline-block;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     &__unread,
@@ -126,11 +162,13 @@
     }
 
     &__unread {
-      width: 22px;
+      width: 24px;
       height: 22px;
       border-radius: 50%;
       border: 2px solid $white-200;
-      background-color: $red-100;
+      background-color: $red-base;
+      box-shadow: 1px 1px 2px 0 $black-100;
+      opacity: 0.7;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -237,7 +275,7 @@
     position: relative;
     width: 100%;
     height: calc(100% - 60px);
-    padding: 20px 0;
+    padding: 20px 4px;
 
     &__context {
       width: 100%;
@@ -305,8 +343,8 @@
     &__item {
       cursor: pointer;
       width: 100%;
-      padding: 4px 30px;
-      margin: 6px 0;
+      padding: 6px 30px;
+      margin: 4px 0;
 
       &.selected {
         background: $white-400;
@@ -325,6 +363,35 @@
       flex-direction: row-reverse;
     }
 
+    &__typing {
+      display: flex;
+      justify-content: center;
+      padding: 4px 6px;
+
+      &__circle {
+        display: block;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        background-color: #A6BDF0;
+        margin: 3px;
+        animation: typing_bounce 1000ms ease infinite;
+        animation-delay: 3600ms;
+
+        &:nth-child(1) {
+          animation-delay: 0ms;
+        }
+
+        &:nth-child(2) {
+          animation-delay: 333ms;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 666ms;
+        }
+      }
+    }
+
     &__avatar {
       width: 34px;
       height: 34px;
@@ -335,10 +402,21 @@
       margin-left: 14px;
     }
 
+    &__content {
+      width: calc(100% - 48px);
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
+    &.reverse &__content {
+      flex-direction: row-reverse;
+    }
+
     &__bubble {
       position: relative;
       padding: 10px 16px;
-      background: #3674FF;
+      background: $blue-200;
       box-shadow: 0 5px 5px rgba(54, 116, 255, 0.2);
       border-radius: 12px 12px 12px 0;
       font-size: 14px;
@@ -347,6 +425,8 @@
       user-select: text;
       cursor: text;
       max-width: 52%;
+      height: content-box;
+      transition: all $duration-menu ease;
 
       &::selection {
         background: $black-100;
@@ -361,6 +441,43 @@
 
       &::selection {
         background: #3674FF;
+      }
+    }
+    &.typing &__bubble {
+       background: #E5EDFF;
+    }
+
+    &__attachments {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 6px;
+
+      &__item {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin: 3px;
+
+        &.single {
+          width: 100%;
+          height: auto;
+          max-width: 200px;
+        }
+
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+
+        &-url {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
 
@@ -383,14 +500,14 @@
       position: absolute;
       bottom: -20px;
       left: 0;
-      display: flex;
+      display: inline;
       color: $black-100;
-      width: 100%;
       font-size: 12px;
       opacity: 0.4;
     }
     &.reverse &__time {
-      flex-direction: row-reverse;
+      left: unset;
+      right: 0;
     }
 
     &__checked {
@@ -400,7 +517,6 @@
       font-size: 12px;
       color: $blue-200;
     }
-    &.reverse &__checked {}
   }
 
   &__textarea {

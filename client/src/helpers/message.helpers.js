@@ -9,5 +9,5 @@ export const MESSAGE = {
 
 export const isSelectedItem = (array, id) => {
 	if (!array.length) return false
-	return !!array.find(selected => selected.id === id)
+	return !!array.find(el => el.message_id === id)
 }

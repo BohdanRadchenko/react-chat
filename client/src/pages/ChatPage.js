@@ -8,7 +8,7 @@ import {getDialogId} from '../helpers/path.helpers';
 
 const ChatPage = () => {
 	const {pathname} = useLocation();
-	const userId = getDialogId(pathname);
+	const chatId = getDialogId(pathname);
 
 	return (
 			<div className="chat">
@@ -16,7 +16,14 @@ const ChatPage = () => {
 					<DialogPanel/>
 				</div>
 				<div className="chat__right">
-					{!!userId && (
+
+					{!chatId && (
+							<p className="chat__right__placeholder">
+								Please select a chat to start messaging.
+							</p>
+					)}
+
+					{!!chatId && (
 							<MessagePanel/>
 					)}
 				</div>

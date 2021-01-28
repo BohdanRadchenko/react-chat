@@ -12,25 +12,58 @@
 
 @import "buttons";
 @import "input";
-@import "avatar";
-
 @import "menu";
 @import "panel";
+
+@import "avatar";
 @import "header";
 
 @import "auth";
 @import "chat";
 
 
-*,
-*:before,
-*:after {
+html {
   box-sizing: border-box;
 }
 
-body, html, #root {
+*,
+*::after,
+*::before {
+  box-sizing:inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbo"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  font-family: 'Roboto', 'Helvetica', sans-serif;
   font-style: normal;
   font-weight: normal;
   height: 100vh;

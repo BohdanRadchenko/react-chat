@@ -7,7 +7,7 @@ import SearchInput from '../Input/SearchInput';
 import DialogList from './DialogList';
 import {getSearchFilter} from '../../helpers/dialog.helpers';
 
-import {testContacts} from '../../options';
+import {testDialogOption} from '../../options';
 
 const DialogPanel = () => {
 	const [searchValue, setSearchValue] = useState('');
@@ -16,7 +16,7 @@ const DialogPanel = () => {
 		setSearchValue(value);
 	};
 
-	const contacts = testContacts;
+	const contacts = testDialogOption;
 
 	const filteredContacts = getSearchFilter(contacts, searchValue);
 
